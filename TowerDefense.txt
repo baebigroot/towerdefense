@@ -1,0 +1,210 @@
+bool verifieCoordTourRoi(posx, poy)
+	if (posx et posy appartien a la list)
+
+- recupere les coord du chemin (fonction initchemin())
+plateau = initChemin()
+
+plateau(randomCase)
+
+
+
+
+gauche(col-1,ligne)
+
+droite(col+1,ligne)
+
+haut(col,ligne-1)
+
+bas(col, ligne+1)
+
+PHASE COMBAT:
+- TListePlayer quiEstAPortee(TplateauJeu jeu, Tunite *UniteAttaquante) ;
+	+ roi: savoir qu'il peut attaquer
+	+ roi: savoir qui peut l'attaquer
+	+ defense: qu'il peut attaquer
+	+ horde: savoir qui peut l'attaquer (la distance entre lui et le roi est trop importante => avancer)
+
+
+PHASE DEPLACEMENT:
+- deplacerUnite() // verifier s'il peut avancer ou rester a sa place
+	+ verifier la case + 1 = NULL (tabParcours)
+
+PHASE CREATION:
+- randomTourRoi(); // creer une unite et le placer sur le plateau du jeu
+	+ placer tourAir, tourSol sur le plateau du jeu
+	+ 
+- randomHorde();
+- probabilitee
+
+
+- Void AjouterUnite(TListePlayer *player, Tunite *nouvelleUnite) ;
+	+ placer tourAir, tourSol sur la liste
+----------------------------------------
+typedef struct T_cell{
+	struct T_cell *suiv;
+	Tunite *pdata; //pointeur vers une unité
+} *TListePlayer;
+
+typedef Tunite* **TplateauJeu ;
+-------------------------------------
+- une fonction (?) pour faire apparaitre les unites de la horde a la position (5,18)
+
+- PositionnePlayerOnPlateau(player1,jeu) ; //réalise le lien entre le tableau et chaque unité : jeu[x,y]=unitecourante-> pdata ; player1 étant une liste d’unités
+
+PHASE AFFICHAGE DU JEU:
+
+
+---------------------
+
+TListePlayer randomTourRoi(int** chemin, int* posXchemin, int* posYchemin) {
+    srand(time(NULL));
+    int randomTour = rand()%2;
+int randomCase = rand()%34; //(33-0+1) Prendre aleatoirement une case dans le tabParcours (indice de 0 a 33)
+
+    //int **tabParcours = initChemin();
+    //int *posXTabParcours = *(tabParcours[randomCase]);
+    //int *posYTabParcours = *(tabParcours[randomCase+1]);
+    int i=0;
+    //bool testTabParcours = true; // il n'appartient pas au tabParcours
+
+    // Verifier que la case a gauche n'appartient pas au tabParcours
+    while ((*(posXTabParcours - 1) != *(posXTabParcours+i))
+           && (*(posYTabParcours) != *(posYTabParcours+i))
+           && (i < NBCOORDPARCOURS-1)) {
+           i++;
+    }
+    // S'assure qu'on a parcouru tout le tabParcours
+    if (/*testTabParcours == true*/ i == NBCOORDPARCOURS-1) {
+        // Verifier que la case est libre
+        if ((posXTabParcours - 1,posYTabParcours) == NULL) {
+            if (randomTour=0)
+            return creeTourSol(posXTabParcours - 1, posYTabParcours);
+        else
+            return creeTourAir(posXTabParcours - 1, posYTabParcours);
+        }
+    }
+
+    // Verifier que la case a droite n'appartient pas au tabParcours
+    i = 0;
+    while ((*(posXTabParcours + 1) != *(posXTabParcours+i))
+       && (*(posYTabParcours) != *(posYTabParcours+i))
+       && (i < NBCOORDPARCOURS-1)) {
+       i++;
+    }
+    // S'assure qu'on a parcouru tout le tabParcours
+    if (/*testTabParcours == true*/ i == NBCOORDPARCOURS-1) {
+        // Verifier que la case est libre
+        if ((posXTabParcours + 1, posYTabParcours) == NULL) {
+            if (randomTour=0)
+            return creeTourSol(posXTabParcours + 1, posYTabParcours);
+        else
+            return creeTourAir(posXTabParcours + 1, posYTabParcours);
+        }
+    }
+
+
+    // Verifier que la case en haut n'appartient pas au tabParcours
+    i = 0;
+    while ((*(posXTabParcours) != *(posXTabParcours+i))
+       && (*(posYTabParcours-1) != *(posYTabParcours+i))
+       && (i < NBCOORDPARCOURS-1)) {
+       i++;
+    }
+    // S'assure qu'on a parcouru tout le tabParcours
+    if (/*testTabParcours == true*/ i == NBCOORDPARCOURS-1) {
+        // Verifier que la case est libre
+        if ((posXTabParcours,posYTabParcours-1) == NULL) {
+            if (randomTour=0)
+            return creeTourSol(posXTabParcours, posYTabParcours-1);
+        else
+            return creeTourAir(posXTabParcours, posYTabParcours-1);
+        }
+    }
+
+    // Verifier que la case en bas n'appartient pas au tabParcours
+    i = 0;
+    while ((*(posXTabParcours) != *(posXTabParcours+i))
+       && (*(posYTabParcours+1) != *(posYTabParcours+i))
+       && (i < NBCOORDPARCOURS-1)) {
+       i++;
+    }
+    // S'assure qu'on a parcouru tout le tabParcours
+    if (/*testTabParcours == true*/ i == NBCOORDPARCOURS-1) {
+        // Verifier que la case est libre
+        if ((posXTabParcours,posYTabParcours+1) == NULL) {
+            if (randomTour=0)
+            return creeTourSol(posXTabParcours, posYTabParcours+1);
+        else
+            return creeTourAir(posXTabParcours, posYTabParcours+1);
+        }
+    }
+}
+
+-------------------
+3rd april
+
+int *verifyPlaceRoi(int** chemin, int randomCase, TplateauJeu jeu) {
+    int *posRoi;
+    posRoi = (int *)malloc(sizeof(int)*2);
+    //int posXTabParcours = *(chemin[randomCase]); //Point sur randomCase[0][0]
+    int posXTabParcours = *(*(chemin+0) + randomCase);
+    //posRoi[0] = *(chemin[randomCase]); //Point sur randomCase[0][0]
+
+    //int posYTabParcours = *(chemin[randomCase]); //Point sur randomCase[1][0]
+    int posYTabParcours = *(*(chemin+1) + randomCase);
+    //posRoi[1] = *(chemin[randomCase+1]); //Point sur randomCase[1][0]
+
+
+    // La case a gauche
+    if ((jeu[posXTabParcours - 1][posYTabParcours] ==  NULL)
+        && (posXTabParcours - 1 != *(*(chemin+0) + (randomCase - 1))) && (posYTabParcours != *(*(chemin+1) + (randomCase - 1))) // les coordonnees de randomCase - 1
+        && (posXTabParcours - 1 != *(*(chemin+0) + (randomCase + 1))) && (posYTabParcours != *(*(chemin+1) + (randomCase + 1)))) {// les coordonnees de randomCase + 1
+            posRoi[0] = posXTabParcours - 1;
+            posRoi[1] = posYTabParcours;
+            return posRoi;
+    }
+}
+------------------
+14th april
+
+posXcasePrec and posYcasePrec are only valid if randomCase > 0, since otherwise randomCase - 1 will be an invalid index. 
+Similarly, posXcaseSuiv and posYcaseSuiv are only valid if randomCase < NBCOORDPARCOURS - 1, since otherwise randomCase + 1 will be an invalid index. 
+If these conditions are not checked first, the program may attempt to access invalid memory.
+
+
+------------------
+16th april
+int num = rand() % 4 + 3;
+This will generate a random integer between 0 and 3, and then add 3 to the result to shift the range to 3 to 6.
+----------------
+17th april
+(*player)->pdata->nom == tourRoi // doesnt work when we try to deference a NULL pointer or an uninitialized pointer 
+
+-----------------
+20 april
+
+- AjouteUnite
+// si c'est le playerRoi
+        if ((*player) != NULL) {
+            if ((*player)->pdata->nom == tourRoi) {
+                if ((*player)->suiv == NULL)
+                    (*player)->suiv = nouv;
+                else {
+                    nouv->suiv = (*player)->suiv;
+                    (*player)->suiv = nouv; // *player point toujours sur le TourRoi comme il est toujours le premier element dans la liste
+                }
+            }
+        }
+
+        // si c'est le playerHorde
+        else {
+            if (listeVide(*player)) {
+                *player = nouv;
+                nouv->suiv = NULL;
+            }
+            else {
+                nouv->suiv = (*player);
+                (*player) = nouv;
+            }
+        }
+    }

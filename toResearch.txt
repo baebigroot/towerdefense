@@ -1,0 +1,3 @@
+- what is memory leak?
+- when we need to use free()
+- segmentation fault error: It usually occurs when a program tries to access a memory location that it is not allowed to access. This can happen for a variety of reasons, such as dereferencing a null pointer, accessing an array out of bounds, or writing to a read-only memory location.
