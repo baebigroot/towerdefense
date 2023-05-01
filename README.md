@@ -1,4 +1,4 @@
-# towerdefense
+# Tower Defense
 
 The game involves defending a king's tower, located at the end of a known path, against incoming attacking units using strategically placed towers. The objective of the game is to prevent the tower from being destroyed, which will result in the end of the game.
 
